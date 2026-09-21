@@ -18,4 +18,15 @@ Estudar e aplicar conceitos de programação paralela, concorrente e distribuíd
 - `docs/`: documentação do trabalho.
 - `resultados/`: resultados dos experimentos.
 
-O projeto não utiliza Maven, Gradle ou frameworks. Nesta etapa, nenhum código Java foi implementado.
+O projeto não utiliza Maven, Gradle ou frameworks. A versão inicial em `src/Main.java` realiza o processamento sequencial de matrizes determinísticas, medindo apenas o tempo de processamento.
+
+## Como executar
+
+Com um JDK instalado, execute na raiz do projeto:
+
+```sh
+javac -d out src/Main.java
+java -cp out Main
+```
+
+O menu oferece matrizes de 500x500, 1000x1000, 1500x1500 e 2000x2000. Ao final de cada processamento, exibe o resultado e o tempo em milissegundos e segundos. Use a opção `0` para sair.
