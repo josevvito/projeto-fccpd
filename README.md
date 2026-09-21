@@ -1,4 +1,4 @@
-# Projeto FPCPD
+# Projeto FCCPD
 
 **Disciplina:** Programação Paralela, Concorrente e Distribuída.
 
