@@ -1,6 +1,6 @@
 # Projeto FCCPD
 
-**Disciplina:** Programação Paralela, Concorrente e Distribuída.
+**Disciplina:** Fundamentos de computação Paralela, Concorrente e Distribuída.
 
 ## Objetivo
 
