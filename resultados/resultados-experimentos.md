@@ -1,8 +1,8 @@
 # Resultados dos experimentos finais
 
-- Início da bateria: 2026-09-21T13:45:38.173363800-03:00
-- Estado: Concluída somente a bateria 500x500; demais dimensões pendentes
-- Java: 25.0.4+1-b508.27
+- Início da bateria: 2026-09-21T14:03:38.397132800-03:00
+- Estado: Bateria completa concluída
+- Java: 25.0.4.1+1-LTS
 - JVM: OpenJDK 64-Bit Server VM
 - Sistema: Windows 11 10.0 / amd64
 - Processadores disponíveis para a JVM: 8
@@ -21,22 +21,22 @@ Validação de cada repetição: resultado finito e `|resultado - V1| <= 1e-9 * 
 
 | Implementação | Quantidade de tarefas | T1 (ms) | T2 (ms) | T3 (ms) | T4 (ms) | T5 (ms) | T6 (ms) | T7 (ms) | T8 (ms) | T9 (ms) | T10 (ms) | Tempo médio (ms) | Speedup | Resultado correto |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| V1 — Sequencial | Não se aplica | 8847.597900 | 8079.093500 | 7033.784100 | 7495.027900 | 6837.152800 | 7070.145000 | 9273.370000 | 7822.271300 | 8093.530300 | 6986.106200 | 7753.807900 | Não se aplica | Sim (10/10) |
-| V2 — ExecutorService | 5 | 3095.958800 | 3263.823600 | 3021.330900 | 3274.487600 | 3585.042900 | 4285.989000 | 5021.229500 | 4234.808400 | 3693.204600 | 3563.820400 | 3703.969570 | 2.093378 | Sim (10/10) |
-| V2 — ExecutorService | 10 | 3882.105500 | 3641.762800 | 4406.770500 | 3148.185900 | 3227.244900 | 3119.509700 | 3273.269700 | 3323.346200 | 3041.705700 | 2984.524700 | 3404.842560 | 2.277288 | Sim (10/10) |
-| V2 — ExecutorService | 100 | 2904.394400 | 3279.612200 | 2754.343400 | 3020.335600 | 2545.627200 | 2514.417000 | 2712.295000 | 2508.296200 | 2558.445100 | 2902.709800 | 2770.047590 | 2.799161 | Sim (10/10) |
-| V3 — StructuredTaskScope | 5 | 3974.649500 | 3279.169200 | 3301.592700 | 2985.568600 | 3004.916400 | 2946.870100 | 2854.062700 | 2874.694200 | 2790.669900 | 2777.396600 | 3078.958990 | 2.518321 | Sim (10/10) |
-| V3 — StructuredTaskScope | 10 | 3132.877000 | 2910.862700 | 2880.439300 | 3567.271400 | 3007.295700 | 3022.361900 | 2856.358000 | 2954.079100 | 2900.548400 | 2863.276900 | 3009.537040 | 2.576412 | Sim (10/10) |
-| V3 — StructuredTaskScope | 100 | 2447.875500 | 2528.919300 | 2501.485500 | 2648.817800 | 2457.267200 | 2736.353200 | 2493.734800 | 2393.320000 | 2534.398200 | 2483.888900 | 2522.606040 | 3.073729 | Sim (10/10) |
-| V4 — StructuredTaskScope + fila | 5 | 3675.484200 | 3419.664600 | 2969.228300 | 2809.578600 | 3006.631900 | 3229.322200 | 2857.492600 | 2800.153400 | 2848.381300 | 2906.013800 | 3052.195090 | 2.540404 | Sim (10/10) |
-| V4 — StructuredTaskScope + fila | 10 | 3137.234900 | 3158.203700 | 2859.452600 | 2791.418000 | 2793.147900 | 2909.391100 | 3031.117700 | 2788.315700 | 2941.072300 | 2881.778800 | 2929.113270 | 2.647152 | Sim (10/10) |
-| V4 — StructuredTaskScope + fila | 100 | 2589.621600 | 2524.196300 | 2585.847700 | 2733.428400 | 2586.646200 | 2405.165800 | 2570.979200 | 2857.462600 | 2481.960800 | 2579.627600 | 2591.493620 | 2.992023 | Sim (10/10) |
+| V1 — Sequencial | Não se aplica | 6018.375100 | 6077.265500 | 6276.407700 | 6520.846800 | 6476.752700 | 6454.532100 | 6408.128700 | 6833.595000 | 6388.918800 | 7123.312400 | 6457.813480 | Não se aplica | Sim (10/10) |
+| V2 — ExecutorService | 5 | 3119.677100 | 3235.764700 | 3005.007400 | 2911.354100 | 2905.025100 | 2729.891100 | 2797.034600 | 2608.012200 | 2913.666800 | 2642.587800 | 2886.802090 | 2.237013 | Sim (10/10) |
+| V2 — ExecutorService | 10 | 2970.135400 | 2800.276200 | 2982.484800 | 2863.682400 | 2789.876000 | 2737.202200 | 2522.964800 | 2607.211400 | 2743.932000 | 2655.652000 | 2767.341720 | 2.333580 | Sim (10/10) |
+| V2 — ExecutorService | 100 | 2360.804300 | 2467.373000 | 2601.423400 | 2524.664700 | 2462.548400 | 2331.964600 | 2308.637800 | 2321.083000 | 2287.894900 | 2297.256000 | 2396.365010 | 2.694837 | Sim (10/10) |
+| V3 — StructuredTaskScope | 5 | 3026.341400 | 3013.559400 | 2988.837200 | 2634.928400 | 2689.198300 | 2650.260400 | 2921.476000 | 2740.432900 | 2757.709100 | 2608.141600 | 2803.088470 | 2.303821 | Sim (10/10) |
+| V3 — StructuredTaskScope | 10 | 3241.650000 | 2902.410800 | 2813.618200 | 2595.256200 | 2558.681700 | 2581.023000 | 2540.970100 | 2648.646000 | 2613.550000 | 2660.860800 | 2715.666680 | 2.377985 | Sim (10/10) |
+| V3 — StructuredTaskScope | 100 | 2350.857100 | 2379.339400 | 2307.020600 | 2385.217200 | 2652.378700 | 2273.440600 | 2247.167000 | 2401.718000 | 2412.767700 | 2532.104600 | 2394.201090 | 2.697273 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 5 | 3380.552000 | 2908.752400 | 2825.282100 | 2698.394600 | 2589.781000 | 2806.242900 | 2682.842700 | 3002.253200 | 2712.046100 | 3084.387300 | 2869.053430 | 2.250852 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 10 | 3288.201700 | 3020.550400 | 2844.671800 | 2769.284700 | 2738.947700 | 2654.977700 | 2626.776800 | 2576.227800 | 2662.683000 | 2695.585100 | 2787.790670 | 2.316463 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 100 | 2407.602500 | 2507.383500 | 2503.494900 | 2299.122300 | 2329.053700 | 2300.237400 | 2245.747300 | 2267.441500 | 2461.007100 | 2253.400700 | 2357.449090 | 2.739323 | Sim (10/10) |
 
 ### Menor tempo médio por versão
 
-- V2: 100 tarefas (2770.047590 ms);
-- V3: 100 tarefas (2522.606040 ms);
-- V4: 100 tarefas (2591.493620 ms);
+- V2: 100 tarefas (2396.365010 ms);
+- V3: 100 tarefas (2394.201090 ms);
+- V4: 100 tarefas (2357.449090 ms);
 
 Menor tempo não substitui a conferência de correção na tabela.
 
@@ -57,79 +57,106 @@ Menor tempo não substitui a conferência de correção na tabela.
 
 | Implementação | Quantidade de tarefas | T1 (ms) | T2 (ms) | T3 (ms) | T4 (ms) | T5 (ms) | T6 (ms) | T7 (ms) | T8 (ms) | T9 (ms) | T10 (ms) | Tempo médio (ms) | Speedup | Resultado correto |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| V1 — Sequencial | Não se aplica | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Não se aplica | Pendente |
-| V2 — ExecutorService | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
+| V1 — Sequencial | Não se aplica | 26923.623100 | 26407.725000 | 26107.801400 | 26517.521300 | 26006.126200 | 26747.347300 | 26617.291700 | 26538.345500 | 27174.694600 | 27281.354300 | 26632.183040 | Não se aplica | Sim (10/10) |
+| V2 — ExecutorService | 5 | 11660.819300 | 11255.148000 | 10944.901300 | 10735.831600 | 11064.892700 | 10480.254100 | 10556.103800 | 10891.325500 | 10609.233000 | 10549.744700 | 10874.825400 | 2.448976 | Sim (10/10) |
+| V2 — ExecutorService | 10 | 12000.452000 | 10592.650800 | 10878.463700 | 11145.508700 | 10394.654100 | 10550.257400 | 10745.591400 | 10363.839900 | 11636.485600 | 12353.857100 | 11066.176070 | 2.406629 | Sim (10/10) |
+| V2 — ExecutorService | 100 | 11981.030900 | 11345.750900 | 10408.142300 | 10351.216700 | 14043.846000 | 11265.315000 | 9417.388700 | 9214.589500 | 9791.407000 | 9261.417400 | 10708.010440 | 2.487127 | Sim (10/10) |
+| V3 — StructuredTaskScope | 5 | 11232.519000 | 10985.548700 | 11137.254600 | 13964.826600 | 13035.213400 | 11303.166200 | 11307.847200 | 12453.820000 | 12633.332100 | 11448.524000 | 11950.205180 | 2.228596 | Sim (10/10) |
+| V3 — StructuredTaskScope | 10 | 11902.616500 | 11130.512200 | 10697.203500 | 11051.815200 | 10836.795800 | 10851.718700 | 11250.528400 | 11731.374300 | 11262.279900 | 11667.444600 | 11238.228910 | 2.369785 | Sim (10/10) |
+| V3 — StructuredTaskScope | 100 | 10290.505500 | 11024.757000 | 10892.193800 | 9966.274500 | 10186.649700 | 9873.827500 | 11054.165300 | 11821.795900 | 9756.248200 | 9231.501000 | 10409.791840 | 2.558378 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 5 | 11961.675800 | 11314.297500 | 11265.335300 | 10848.304900 | 12712.160100 | 11519.785400 | 12617.021100 | 13168.442000 | 11400.976900 | 10985.790000 | 11779.378900 | 2.260916 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 10 | 11297.605600 | 11163.433200 | 11109.040800 | 10927.819200 | 11506.000900 | 11357.731800 | 11253.903600 | 12008.297100 | 12902.549500 | 12096.926500 | 11562.330820 | 2.303358 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 100 | 11906.567700 | 10111.949100 | 9843.612300 | 9763.414900 | 10023.769200 | 8957.984900 | 8920.117000 | 9705.539400 | 10966.812400 | 10770.139400 | 10096.990630 | 2.637636 | Sim (10/10) |
 
 ### Menor tempo médio por versão
 
-- V2: Pendente
-- V3: Pendente
-- V4: Pendente
+- V2: 100 tarefas (10708.010440 ms);
+- V3: 100 tarefas (10409.791840 ms);
+- V4: 100 tarefas (10096.990630 ms);
 
 Menor tempo não substitui a conferência de correção na tabela.
 
 ### Resultados numéricos por repetição
 
-Pendente.
+- V1 — Sequencial / tarefas=0: R1=5058731.323994643 (correto); R2=5058731.323994643 (correto); R3=5058731.323994643 (correto); R4=5058731.323994643 (correto); R5=5058731.323994643 (correto); R6=5058731.323994643 (correto); R7=5058731.323994643 (correto); R8=5058731.323994643 (correto); R9=5058731.323994643 (correto); R10=5058731.323994643 (correto);
+- V2 — ExecutorService / tarefas=5: R1=5058731.323994585 (correto); R2=5058731.323994585 (correto); R3=5058731.323994585 (correto); R4=5058731.323994585 (correto); R5=5058731.323994585 (correto); R6=5058731.323994585 (correto); R7=5058731.323994585 (correto); R8=5058731.323994585 (correto); R9=5058731.323994585 (correto); R10=5058731.323994585 (correto);
+- V2 — ExecutorService / tarefas=10: R1=5058731.323995135 (correto); R2=5058731.323995135 (correto); R3=5058731.323995135 (correto); R4=5058731.323995135 (correto); R5=5058731.323995135 (correto); R6=5058731.323995135 (correto); R7=5058731.323995135 (correto); R8=5058731.323995135 (correto); R9=5058731.323995135 (correto); R10=5058731.323995135 (correto);
+- V2 — ExecutorService / tarefas=100: R1=5058731.3239946095 (correto); R2=5058731.3239946095 (correto); R3=5058731.3239946095 (correto); R4=5058731.3239946095 (correto); R5=5058731.3239946095 (correto); R6=5058731.3239946095 (correto); R7=5058731.3239946095 (correto); R8=5058731.3239946095 (correto); R9=5058731.3239946095 (correto); R10=5058731.3239946095 (correto);
+- V3 — StructuredTaskScope / tarefas=5: R1=5058731.323994585 (correto); R2=5058731.323994585 (correto); R3=5058731.323994585 (correto); R4=5058731.323994585 (correto); R5=5058731.323994585 (correto); R6=5058731.323994585 (correto); R7=5058731.323994585 (correto); R8=5058731.323994585 (correto); R9=5058731.323994585 (correto); R10=5058731.323994585 (correto);
+- V3 — StructuredTaskScope / tarefas=10: R1=5058731.323995135 (correto); R2=5058731.323995135 (correto); R3=5058731.323995135 (correto); R4=5058731.323995135 (correto); R5=5058731.323995135 (correto); R6=5058731.323995135 (correto); R7=5058731.323995135 (correto); R8=5058731.323995135 (correto); R9=5058731.323995135 (correto); R10=5058731.323995135 (correto);
+- V3 — StructuredTaskScope / tarefas=100: R1=5058731.3239946095 (correto); R2=5058731.3239946095 (correto); R3=5058731.3239946095 (correto); R4=5058731.3239946095 (correto); R5=5058731.3239946095 (correto); R6=5058731.3239946095 (correto); R7=5058731.3239946095 (correto); R8=5058731.3239946095 (correto); R9=5058731.3239946095 (correto); R10=5058731.3239946095 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=5: R1=5058731.323994585 (correto); R2=5058731.323994585 (correto); R3=5058731.323994585 (correto); R4=5058731.323994585 (correto); R5=5058731.323994585 (correto); R6=5058731.323994585 (correto); R7=5058731.323994585 (correto); R8=5058731.323994585 (correto); R9=5058731.323994585 (correto); R10=5058731.323994585 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=10: R1=5058731.323995135 (correto); R2=5058731.323995135 (correto); R3=5058731.323995135 (correto); R4=5058731.323995135 (correto); R5=5058731.323995135 (correto); R6=5058731.323995135 (correto); R7=5058731.323995135 (correto); R8=5058731.323995135 (correto); R9=5058731.323995135 (correto); R10=5058731.323995135 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=100: R1=5058731.3239946095 (correto); R2=5058731.3239946095 (correto); R3=5058731.3239946095 (correto); R4=5058731.3239946095 (correto); R5=5058731.3239946095 (correto); R6=5058731.3239946095 (correto); R7=5058731.323994609 (correto); R8=5058731.3239946095 (correto); R9=5058731.3239946095 (correto); R10=5058731.3239946095 (correto);
 
 ## Matriz 1500x1500
 
 | Implementação | Quantidade de tarefas | T1 (ms) | T2 (ms) | T3 (ms) | T4 (ms) | T5 (ms) | T6 (ms) | T7 (ms) | T8 (ms) | T9 (ms) | T10 (ms) | Tempo médio (ms) | Speedup | Resultado correto |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| V1 — Sequencial | Não se aplica | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Não se aplica | Pendente |
-| V2 — ExecutorService | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
+| V1 — Sequencial | Não se aplica | 61378.222200 | 62102.269700 | 65776.760800 | 60674.261700 | 59459.581100 | 59395.759500 | 59360.278200 | 61888.033000 | 60928.087700 | 60481.918400 | 61144.517230 | Não se aplica | Sim (10/10) |
+| V2 — ExecutorService | 5 | 25382.912600 | 24415.626200 | 25039.093200 | 24194.310200 | 24246.459500 | 25937.781300 | 24518.001700 | 24974.832100 | 24284.614500 | 24250.711700 | 24724.434300 | 2.473040 | Sim (10/10) |
+| V2 — ExecutorService | 10 | 24768.540400 | 23677.203600 | 23870.375200 | 23500.946000 | 23684.168000 | 23599.642800 | 23478.481500 | 23736.592600 | 23673.701100 | 23745.251800 | 23773.490300 | 2.571962 | Sim (10/10) |
+| V2 — ExecutorService | 100 | 21650.574100 | 20367.218800 | 20440.845400 | 20052.835800 | 20493.620300 | 20051.940500 | 20298.012700 | 20372.685000 | 20273.256400 | 19985.970600 | 20398.695960 | 2.997472 | Sim (10/10) |
+| V3 — StructuredTaskScope | 5 | 24723.178800 | 24493.689000 | 24053.207000 | 23833.939400 | 24224.208000 | 24030.651700 | 24214.298700 | 24119.971600 | 24053.622800 | 24004.101400 | 24175.086840 | 2.529237 | Sim (10/10) |
+| V3 — StructuredTaskScope | 10 | 25164.722000 | 24255.581700 | 23650.662200 | 23925.754700 | 24403.012200 | 24136.401700 | 24617.424400 | 24870.626400 | 23952.421000 | 23871.756000 | 24284.836230 | 2.517806 | Sim (10/10) |
+| V3 — StructuredTaskScope | 100 | 21175.335800 | 19914.886200 | 20035.095500 | 20294.343200 | 19754.855200 | 19984.528800 | 20096.447300 | 20008.587400 | 20417.786500 | 20147.927800 | 20182.979370 | 3.029509 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 5 | 24818.989700 | 24149.741300 | 24451.086600 | 25064.535100 | 27324.381900 | 27566.349300 | 24629.982000 | 26124.253500 | 26463.484400 | 25190.801400 | 25578.360520 | 2.390478 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 10 | 25111.027700 | 24788.260600 | 24367.102200 | 25044.537100 | 24726.143600 | 24776.850000 | 24195.013500 | 24332.868100 | 25123.720900 | 24536.602300 | 24700.212600 | 2.475465 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 100 | 21643.287800 | 20984.822500 | 20571.306800 | 20998.644300 | 20338.408000 | 20616.693900 | 20260.392500 | 20635.558200 | 20417.787400 | 20446.496000 | 20691.339740 | 2.955078 | Sim (10/10) |
 
 ### Menor tempo médio por versão
 
-- V2: Pendente
-- V3: Pendente
-- V4: Pendente
+- V2: 100 tarefas (20398.695960 ms);
+- V3: 100 tarefas (20182.979370 ms);
+- V4: 100 tarefas (20691.339740 ms);
 
 Menor tempo não substitui a conferência de correção na tabela.
 
 ### Resultados numéricos por repetição
 
-Pendente.
+- V1 — Sequencial / tarefas=0: R1=1.1382145478991186E7 (correto); R2=1.1382145478991186E7 (correto); R3=1.1382145478991186E7 (correto); R4=1.1382145478991186E7 (correto); R5=1.1382145478991186E7 (correto); R6=1.1382145478991186E7 (correto); R7=1.1382145478991186E7 (correto); R8=1.1382145478991186E7 (correto); R9=1.1382145478991186E7 (correto); R10=1.1382145478991186E7 (correto);
+- V2 — ExecutorService / tarefas=5: R1=1.1382145478984088E7 (correto); R2=1.1382145478984088E7 (correto); R3=1.1382145478984088E7 (correto); R4=1.1382145478984088E7 (correto); R5=1.1382145478984088E7 (correto); R6=1.1382145478984088E7 (correto); R7=1.1382145478984088E7 (correto); R8=1.1382145478984088E7 (correto); R9=1.1382145478984088E7 (correto); R10=1.1382145478984088E7 (correto);
+- V2 — ExecutorService / tarefas=10: R1=1.138214547898706E7 (correto); R2=1.138214547898706E7 (correto); R3=1.138214547898706E7 (correto); R4=1.138214547898706E7 (correto); R5=1.138214547898706E7 (correto); R6=1.138214547898706E7 (correto); R7=1.138214547898706E7 (correto); R8=1.138214547898706E7 (correto); R9=1.138214547898706E7 (correto); R10=1.138214547898706E7 (correto);
+- V2 — ExecutorService / tarefas=100: R1=1.1382145478987664E7 (correto); R2=1.1382145478987664E7 (correto); R3=1.1382145478987664E7 (correto); R4=1.1382145478987664E7 (correto); R5=1.1382145478987664E7 (correto); R6=1.1382145478987664E7 (correto); R7=1.1382145478987664E7 (correto); R8=1.1382145478987664E7 (correto); R9=1.1382145478987664E7 (correto); R10=1.1382145478987664E7 (correto);
+- V3 — StructuredTaskScope / tarefas=5: R1=1.1382145478984088E7 (correto); R2=1.1382145478984088E7 (correto); R3=1.1382145478984088E7 (correto); R4=1.1382145478984088E7 (correto); R5=1.1382145478984088E7 (correto); R6=1.1382145478984088E7 (correto); R7=1.1382145478984088E7 (correto); R8=1.1382145478984088E7 (correto); R9=1.1382145478984088E7 (correto); R10=1.1382145478984088E7 (correto);
+- V3 — StructuredTaskScope / tarefas=10: R1=1.138214547898706E7 (correto); R2=1.138214547898706E7 (correto); R3=1.138214547898706E7 (correto); R4=1.138214547898706E7 (correto); R5=1.138214547898706E7 (correto); R6=1.138214547898706E7 (correto); R7=1.138214547898706E7 (correto); R8=1.138214547898706E7 (correto); R9=1.138214547898706E7 (correto); R10=1.138214547898706E7 (correto);
+- V3 — StructuredTaskScope / tarefas=100: R1=1.1382145478987664E7 (correto); R2=1.1382145478987664E7 (correto); R3=1.1382145478987664E7 (correto); R4=1.1382145478987664E7 (correto); R5=1.1382145478987664E7 (correto); R6=1.1382145478987664E7 (correto); R7=1.1382145478987664E7 (correto); R8=1.1382145478987664E7 (correto); R9=1.1382145478987664E7 (correto); R10=1.1382145478987664E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=5: R1=1.1382145478984088E7 (correto); R2=1.1382145478984088E7 (correto); R3=1.1382145478984088E7 (correto); R4=1.1382145478984088E7 (correto); R5=1.1382145478984088E7 (correto); R6=1.1382145478984088E7 (correto); R7=1.1382145478984088E7 (correto); R8=1.1382145478984088E7 (correto); R9=1.1382145478984088E7 (correto); R10=1.1382145478984088E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=10: R1=1.1382145478987057E7 (correto); R2=1.1382145478987057E7 (correto); R3=1.1382145478987057E7 (correto); R4=1.138214547898706E7 (correto); R5=1.1382145478987057E7 (correto); R6=1.1382145478987057E7 (correto); R7=1.1382145478987057E7 (correto); R8=1.1382145478987057E7 (correto); R9=1.1382145478987057E7 (correto); R10=1.1382145478987057E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=100: R1=1.1382145478987666E7 (correto); R2=1.1382145478987664E7 (correto); R3=1.1382145478987664E7 (correto); R4=1.1382145478987666E7 (correto); R5=1.1382145478987664E7 (correto); R6=1.1382145478987664E7 (correto); R7=1.1382145478987664E7 (correto); R8=1.1382145478987664E7 (correto); R9=1.1382145478987664E7 (correto); R10=1.1382145478987664E7 (correto);
 
 ## Matriz 2000x2000
 
 | Implementação | Quantidade de tarefas | T1 (ms) | T2 (ms) | T3 (ms) | T4 (ms) | T5 (ms) | T6 (ms) | T7 (ms) | T8 (ms) | T9 (ms) | T10 (ms) | Tempo médio (ms) | Speedup | Resultado correto |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| V1 — Sequencial | Não se aplica | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Não se aplica | Pendente |
-| V2 — ExecutorService | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V2 — ExecutorService | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V3 — StructuredTaskScope | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 5 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 10 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
-| V4 — StructuredTaskScope + fila | 100 | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente | Pendente |
+| V1 — Sequencial | Não se aplica | 105491.829800 | 105189.772000 | 104695.502400 | 104662.736500 | 105518.210600 | 106656.476600 | 106284.372100 | 107722.134600 | 106398.369600 | 105747.302500 | 105836.670670 | Não se aplica | Sim (10/10) |
+| V2 — ExecutorService | 5 | 44842.075400 | 44251.879000 | 44476.737400 | 44515.056000 | 44398.303200 | 44381.193600 | 44874.584200 | 45207.703900 | 44238.015000 | 43897.962700 | 44508.351040 | 2.377906 | Sim (10/10) |
+| V2 — ExecutorService | 10 | 43702.405400 | 41933.567000 | 42049.954400 | 43779.906100 | 43858.137900 | 42134.243300 | 42575.634300 | 41593.981200 | 42199.480000 | 42230.970600 | 42605.828020 | 2.484089 | Sim (10/10) |
+| V2 — ExecutorService | 100 | 38010.318000 | 37633.142000 | 36162.380900 | 36385.207900 | 36161.004500 | 36219.327500 | 36776.724200 | 36117.662500 | 35961.233300 | 37126.584600 | 36655.358540 | 2.887345 | Sim (10/10) |
+| V3 — StructuredTaskScope | 5 | 43902.212000 | 43605.710500 | 43582.535500 | 43341.431300 | 43307.517000 | 43912.917100 | 44292.730700 | 44120.277100 | 43687.040900 | 43858.397300 | 43761.076940 | 2.418512 | Sim (10/10) |
+| V3 — StructuredTaskScope | 10 | 43642.941000 | 43567.528500 | 43578.290800 | 43435.394200 | 42674.013700 | 42729.648700 | 43522.329800 | 43054.520000 | 43005.065000 | 43582.639700 | 43279.237140 | 2.445438 | Sim (10/10) |
+| V3 — StructuredTaskScope | 100 | 37675.189300 | 36647.925700 | 37280.360600 | 36418.911400 | 36518.084800 | 37254.213900 | 36260.582000 | 36057.256500 | 37317.163900 | 37701.594800 | 36913.128290 | 2.867182 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 5 | 44059.535400 | 43332.439700 | 43829.256800 | 46359.985900 | 49358.228400 | 48527.411600 | 50127.155000 | 45009.568100 | 49613.043300 | 63621.455200 | 48383.807940 | 2.187440 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 10 | 61981.039700 | 50636.285200 | 47506.618800 | 48677.116800 | 46437.801000 | 51269.723600 | 52069.879700 | 47801.877000 | 47972.244800 | 45430.559600 | 49978.314620 | 2.117652 | Sim (10/10) |
+| V4 — StructuredTaskScope + fila | 100 | 40147.564900 | 38288.880500 | 41149.924900 | 39801.591900 | 39433.187000 | 38876.429500 | 38376.075800 | 45124.737800 | 49999.186700 | 40899.182500 | 41209.676150 | 2.568248 | Sim (10/10) |
 
 ### Menor tempo médio por versão
 
-- V2: Pendente
-- V3: Pendente
-- V4: Pendente
+- V2: 100 tarefas (36655.358540 ms);
+- V3: 100 tarefas (36913.128290 ms);
+- V4: 100 tarefas (41209.676150 ms);
 
 Menor tempo não substitui a conferência de correção na tabela.
 
 ### Resultados numéricos por repetição
 
-Pendente.
+- V1 — Sequencial / tarefas=0: R1=2.023492529607134E7 (correto); R2=2.023492529607134E7 (correto); R3=2.023492529607134E7 (correto); R4=2.023492529607134E7 (correto); R5=2.023492529607134E7 (correto); R6=2.023492529607134E7 (correto); R7=2.023492529607134E7 (correto); R8=2.023492529607134E7 (correto); R9=2.023492529607134E7 (correto); R10=2.023492529607134E7 (correto);
+- V2 — ExecutorService / tarefas=5: R1=2.02349252959797E7 (correto); R2=2.02349252959797E7 (correto); R3=2.02349252959797E7 (correto); R4=2.02349252959797E7 (correto); R5=2.02349252959797E7 (correto); R6=2.02349252959797E7 (correto); R7=2.02349252959797E7 (correto); R8=2.02349252959797E7 (correto); R9=2.02349252959797E7 (correto); R10=2.02349252959797E7 (correto);
+- V2 — ExecutorService / tarefas=10: R1=2.0234925295970444E7 (correto); R2=2.0234925295970444E7 (correto); R3=2.0234925295970444E7 (correto); R4=2.0234925295970444E7 (correto); R5=2.0234925295970444E7 (correto); R6=2.0234925295970444E7 (correto); R7=2.0234925295970444E7 (correto); R8=2.0234925295970444E7 (correto); R9=2.0234925295970444E7 (correto); R10=2.0234925295970444E7 (correto);
+- V2 — ExecutorService / tarefas=100: R1=2.0234925295979686E7 (correto); R2=2.0234925295979686E7 (correto); R3=2.0234925295979686E7 (correto); R4=2.0234925295979686E7 (correto); R5=2.0234925295979686E7 (correto); R6=2.0234925295979686E7 (correto); R7=2.0234925295979686E7 (correto); R8=2.0234925295979686E7 (correto); R9=2.0234925295979686E7 (correto); R10=2.0234925295979686E7 (correto);
+- V3 — StructuredTaskScope / tarefas=5: R1=2.02349252959797E7 (correto); R2=2.02349252959797E7 (correto); R3=2.02349252959797E7 (correto); R4=2.02349252959797E7 (correto); R5=2.02349252959797E7 (correto); R6=2.02349252959797E7 (correto); R7=2.02349252959797E7 (correto); R8=2.02349252959797E7 (correto); R9=2.02349252959797E7 (correto); R10=2.02349252959797E7 (correto);
+- V3 — StructuredTaskScope / tarefas=10: R1=2.0234925295970444E7 (correto); R2=2.0234925295970444E7 (correto); R3=2.0234925295970444E7 (correto); R4=2.0234925295970444E7 (correto); R5=2.0234925295970444E7 (correto); R6=2.0234925295970444E7 (correto); R7=2.0234925295970444E7 (correto); R8=2.0234925295970444E7 (correto); R9=2.0234925295970444E7 (correto); R10=2.0234925295970444E7 (correto);
+- V3 — StructuredTaskScope / tarefas=100: R1=2.0234925295979686E7 (correto); R2=2.0234925295979686E7 (correto); R3=2.0234925295979686E7 (correto); R4=2.0234925295979686E7 (correto); R5=2.0234925295979686E7 (correto); R6=2.0234925295979686E7 (correto); R7=2.0234925295979686E7 (correto); R8=2.0234925295979686E7 (correto); R9=2.0234925295979686E7 (correto); R10=2.0234925295979686E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=5: R1=2.02349252959797E7 (correto); R2=2.02349252959797E7 (correto); R3=2.02349252959797E7 (correto); R4=2.02349252959797E7 (correto); R5=2.02349252959797E7 (correto); R6=2.02349252959797E7 (correto); R7=2.02349252959797E7 (correto); R8=2.02349252959797E7 (correto); R9=2.02349252959797E7 (correto); R10=2.02349252959797E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=10: R1=2.0234925295970444E7 (correto); R2=2.0234925295970444E7 (correto); R3=2.0234925295970444E7 (correto); R4=2.0234925295970444E7 (correto); R5=2.0234925295970444E7 (correto); R6=2.0234925295970444E7 (correto); R7=2.0234925295970444E7 (correto); R8=2.0234925295970444E7 (correto); R9=2.0234925295970444E7 (correto); R10=2.0234925295970444E7 (correto);
+- V4 — StructuredTaskScope + fila / tarefas=100: R1=2.0234925295979686E7 (correto); R2=2.0234925295979686E7 (correto); R3=2.0234925295979686E7 (correto); R4=2.0234925295979686E7 (correto); R5=2.0234925295979686E7 (correto); R6=2.0234925295979686E7 (correto); R7=2.0234925295979686E7 (correto); R8=2.0234925295979686E7 (correto); R9=2.0234925295979686E7 (correto); R10=2.0234925295979686E7 (correto);
