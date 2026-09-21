@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.StructuredTaskScope;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Main {
 
@@ -122,6 +123,45 @@ public class Main {
         }
     }
 
+    private static double processarEstadoCompartilhado(double[][] matriz, int quantidadeTarefas)
+            throws InterruptedException {
+        if (quantidadeTarefas != 5 && quantidadeTarefas != 10 && quantidadeTarefas != 100) {
+            throw new IllegalArgumentException("Use 5, 10 ou 100 tarefas.");
+        }
+
+        // Uma fila por execucao, compartilhada apenas pelas subtarefas deste escopo.
+        ConcurrentLinkedQueue<Double> resultados = new ConcurrentLinkedQueue<>();
+        try (var scope = StructuredTaskScope.<Void>open()) {
+            for (int tarefa = 0; tarefa < quantidadeTarefas; tarefa++) {
+                final int inicio = (int) ((long) tarefa * matriz.length / quantidadeTarefas);
+                final int fim = (int) ((long) (tarefa + 1) * matriz.length / quantidadeTarefas);
+
+                scope.fork(() -> {
+                    double parcial = 0.0;
+                    for (int i = inicio; i < fim; i++) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            throw new InterruptedException("Processamento interrompido.");
+                        }
+                        for (int j = 0; j < matriz[i].length; j++) {
+                            parcial += calcular(matriz[i][j]);
+                        }
+                    }
+                    resultados.add(parcial);
+                    return null;
+                });
+            }
+
+            // Somente combina a fila se todas as subtarefas terminarem com sucesso.
+            scope.join();
+
+            double resultado = 0.0;
+            for (double parcial : resultados) {
+                resultado += parcial;
+            }
+            return resultado;
+        }
+    }
+
     // Os valores dependem apenas da posicao e ficam entre 0,0001 e 0,0100.
     private static double[][] gerarMatriz(int linhas, int colunas) {
         double[][] matriz = new double[linhas][colunas];
@@ -146,10 +186,16 @@ public class Main {
 
     private static void executarProcessamento(int linhas, int colunas,
             int quantidadeTarefas, boolean estruturado) {
+        executarProcessamento(linhas, colunas, quantidadeTarefas, estruturado, false);
+    }
+
+    private static void executarProcessamento(int linhas, int colunas,
+            int quantidadeTarefas, boolean estruturado, boolean estadoCompartilhado) {
         System.out.println();
         System.out.println("==========================================");
         System.out.println(quantidadeTarefas == 0
                 ? "       PROCESSAMENTO SEQUENCIAL"
+                : estadoCompartilhado ? "       V4: ESTADO COMPARTILHADO COM FILA"
                 : estruturado ? "       PROCESSAMENTO COM STRUCTUREDTASKSCOPE"
                 : "       PROCESSAMENTO COM EXECUTORSERVICE");
         System.out.println("==========================================");
@@ -172,6 +218,7 @@ public class Main {
         try {
             resultado = quantidadeTarefas == 0
                     ? processar(matriz)
+                    : estadoCompartilhado ? processarEstadoCompartilhado(matriz, quantidadeTarefas)
                     : estruturado ? processarEstruturado(matriz, quantidadeTarefas)
                     : processarParalelo(matriz, quantidadeTarefas);
         } catch (InterruptedException e) {
@@ -208,6 +255,7 @@ public class Main {
         System.out.println("4 - Matriz 2000 x 2000");
         System.out.println("5 - V2: ExecutorService (5, 10 ou 100 tarefas)");
         System.out.println("6 - V3: StructuredTaskScope (5, 10 ou 100 tarefas)");
+        System.out.println("7 - V4: Estado compartilhado (5, 10 ou 100 tarefas)");
         System.out.println("0 - Sair");
         System.out.println("==========================================");
         System.out.print("Escolha uma opcao: ");
@@ -218,6 +266,11 @@ public class Main {
     }
 
     private static void escolherProcessamentoParalelo(Scanner scanner, boolean estruturado) {
+        escolherProcessamentoParalelo(scanner, estruturado, false);
+    }
+
+    private static void escolherProcessamentoParalelo(Scanner scanner,
+            boolean estruturado, boolean estadoCompartilhado) {
         System.out.print("Tamanho da matriz (500, 1000, 1500 ou 2000): ");
         if (!scanner.hasNextInt()) {
             if (scanner.hasNext()) {
@@ -245,7 +298,7 @@ public class Main {
             System.out.println("Quantidade de tarefas invalida!");
             return;
         }
-        executarProcessamento(tamanho, tamanho, quantidadeTarefas, estruturado);
+        executarProcessamento(tamanho, tamanho, quantidadeTarefas, estruturado, estadoCompartilhado);
     }
 
     public static void main(String[] args) {
@@ -284,6 +337,9 @@ public class Main {
                     break;
                 case 6:
                     escolherProcessamentoParalelo(scanner, true);
+                    break;
+                case 7:
+                    escolherProcessamentoParalelo(scanner, true, true);
                     break;
                 case 0:
                     System.out.println("Encerrando o programa...");
