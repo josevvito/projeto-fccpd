@@ -1,0 +1,8 @@
+# Arquivos compilados e diretórios de saída Java
+*.class
+out/
+bin/
+
+# Configurações locais do IntelliJ IDEA
+.idea/
+*.iml
