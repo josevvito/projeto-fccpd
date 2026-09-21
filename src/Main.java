@@ -1,4 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Main {
 
@@ -28,6 +34,54 @@ public class Main {
         return resultado;
     }
 
+    private static double processarParalelo(double[][] matriz, int quantidadeTarefas)
+            throws InterruptedException, ExecutionException {
+        if (quantidadeTarefas != 5 && quantidadeTarefas != 10 && quantidadeTarefas != 100) {
+            throw new IllegalArgumentException("Use 5, 10 ou 100 tarefas.");
+        }
+
+        int quantidadeThreads = Math.min(quantidadeTarefas,
+                Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(quantidadeThreads);
+        List<Future<Double>> resultados = new ArrayList<>();
+        boolean concluido = false;
+
+        try {
+            for (int tarefa = 0; tarefa < quantidadeTarefas; tarefa++) {
+                final int inicio = (int) ((long) tarefa * matriz.length / quantidadeTarefas);
+                final int fim = (int) ((long) (tarefa + 1) * matriz.length / quantidadeTarefas);
+
+                resultados.add(executor.submit(() -> {
+                    double parcial = 0.0;
+                    for (int i = inicio; i < fim; i++) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            throw new InterruptedException("Processamento interrompido.");
+                        }
+                        for (int j = 0; j < matriz[i].length; j++) {
+                            parcial += calcular(matriz[i][j]);
+                        }
+                    }
+                    return parcial;
+                }));
+            }
+
+            // Combina as somas locais na ordem de envio das tarefas.
+            double resultado = 0.0;
+            for (Future<Double> parcial : resultados) {
+                resultado += parcial.get();
+            }
+            concluido = true;
+            return resultado;
+        } finally {
+            if (!concluido) {
+                for (Future<Double> parcial : resultados) {
+                    parcial.cancel(true);
+                }
+            }
+            executor.shutdown();
+        }
+    }
+
     // Os valores dependem apenas da posicao e ficam entre 0,0001 e 0,0100.
     private static double[][] gerarMatriz(int linhas, int colunas) {
         double[][] matriz = new double[linhas][colunas];
@@ -43,11 +97,20 @@ public class Main {
     }
 
     private static void executarProcessamento(int linhas, int colunas) {
+        executarProcessamento(linhas, colunas, 0);
+    }
+
+    private static void executarProcessamento(int linhas, int colunas, int quantidadeTarefas) {
         System.out.println();
         System.out.println("==========================================");
-        System.out.println("       PROCESSAMENTO SEQUENCIAL");
+        System.out.println(quantidadeTarefas == 0
+                ? "       PROCESSAMENTO SEQUENCIAL"
+                : "       PROCESSAMENTO COM EXECUTORSERVICE");
         System.out.println("==========================================");
         System.out.println("Matriz: " + linhas + " x " + colunas);
+        if (quantidadeTarefas != 0) {
+            System.out.println("Tarefas: " + quantidadeTarefas);
+        }
 
         long quantidadeElementos = (long) linhas * colunas;
         System.out.println("Elementos: " + quantidadeElementos);
@@ -59,7 +122,19 @@ public class Main {
 
         // Mede apenas o processamento, sem a criacao da matriz ou a saida.
         long inicio = System.nanoTime();
-        double resultado = processar(matriz);
+        double resultado;
+        try {
+            resultado = quantidadeTarefas == 0
+                    ? processar(matriz)
+                    : processarParalelo(matriz, quantidadeTarefas);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Processamento interrompido.");
+            return;
+        } catch (ExecutionException e) {
+            System.out.println("Falha no processamento: " + e.getCause());
+            return;
+        }
         long fim = System.nanoTime();
 
         long tempoNano = fim - inicio;
@@ -84,9 +159,41 @@ public class Main {
         System.out.println("2 - Matriz 1000 x 1000");
         System.out.println("3 - Matriz 1500 x 1500");
         System.out.println("4 - Matriz 2000 x 2000");
+        System.out.println("5 - V2: ExecutorService (5, 10 ou 100 tarefas)");
         System.out.println("0 - Sair");
         System.out.println("==========================================");
         System.out.print("Escolha uma opcao: ");
+    }
+
+    private static void escolherProcessamentoParalelo(Scanner scanner) {
+        System.out.print("Tamanho da matriz (500, 1000, 1500 ou 2000): ");
+        if (!scanner.hasNextInt()) {
+            if (scanner.hasNext()) {
+                scanner.next();
+            }
+            System.out.println("Tamanho invalido!");
+            return;
+        }
+        int tamanho = scanner.nextInt();
+        if (tamanho != 500 && tamanho != 1000 && tamanho != 1500 && tamanho != 2000) {
+            System.out.println("Tamanho invalido!");
+            return;
+        }
+
+        System.out.print("Quantidade de tarefas (5, 10 ou 100): ");
+        if (!scanner.hasNextInt()) {
+            if (scanner.hasNext()) {
+                scanner.next();
+            }
+            System.out.println("Quantidade de tarefas invalida!");
+            return;
+        }
+        int quantidadeTarefas = scanner.nextInt();
+        if (quantidadeTarefas != 5 && quantidadeTarefas != 10 && quantidadeTarefas != 100) {
+            System.out.println("Quantidade de tarefas invalida!");
+            return;
+        }
+        executarProcessamento(tamanho, tamanho, quantidadeTarefas);
     }
 
     public static void main(String[] args) {
@@ -120,6 +227,9 @@ public class Main {
                 case 4:
                     executarProcessamento(2000, 2000);
                     break;
+                case 5:
+                    escolherProcessamentoParalelo(scanner);
+                    break;
                 case 0:
                     System.out.println("Encerrando o programa...");
                     break;
@@ -127,7 +237,7 @@ public class Main {
                     System.out.println("Opcao invalida!");
                     break;
             }
-        } while (opcao != 0);
+        } while (opcao != 0 && !Thread.currentThread().isInterrupted());
 
         scanner.close();
         System.out.println("Programa encerrado.");
