@@ -52,3 +52,24 @@ A medição continua excluindo a geração da matriz e inclui abertura do escopo
 Nos testes de validação da V3, foram comparadas V1, V2 e V3 nas matrizes `0x0`, `3x7`, `103x11` e `500x500`, com 5, 10 e 100 tarefas. Todos os resultados ficaram dentro da tolerância relativa de `1e-9` (mínimo absoluto de `1e-9`), usada apenas nos testes. V2 e V3 produziram resultados idênticos para a mesma divisão; a maior diferença absoluta entre V3 e V1 em `500x500` foi aproximadamente `3,04e-7`. Também foram testadas entradas inválidas, falha de subtarefa e interrupção. Os experimentos completos com dimensões maiores continuam pendentes.
 
 Referências: [exemplo do professor](https://github.com/rnl-school/Paralelismo/tree/Aula04_Concorrencia_Estruturada) e [API StructuredTaskScope do Java 25](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/StructuredTaskScope.html).
+
+## V4: Estado compartilhado com ConcurrentLinkedQueue
+
+A opção `7` executa a V4 com 5, 10 ou 100 subtarefas, preservando as opções das versões anteriores. A divisão em blocos contíguos de linhas, o cálculo e a matriz determinística são os mesmos da V3.
+
+O método `processarEstadoCompartilhado` cria uma `ConcurrentLinkedQueue<Double>` por execução, compartilhada pelas subtarefas do `StructuredTaskScope`. Cada subtarefa criada com `fork()` calcula sua soma local e adiciona exatamente um resultado parcial à fila. Após `join()` terminar com sucesso, apenas a tarefa principal percorre a fila e soma seus valores.
+
+A fila permite inserções concorrentes seguras, sem `ArrayList` compartilhado ou `synchronized`. A matriz é somente lida, as somas locais pertencem a cada subtarefa e a soma final acontece após todas terminarem. Assim, não há disputa por um acumulador nem perda de inserções por acesso concorrente. A fila não é reutilizada entre execuções.
+
+Na V3, os resultados são lidos de `Subtask.get()` na ordem de criação; na V4, a ordem da fila depende das inserções concorrentes. Essa diferença pode produzir pequenas variações de ponto flutuante, sem representar uma race condition no armazenamento. Em caso de falha ou interrupção, a V4 segue o tratamento da V3: o escopo cancela as subtarefas, aguarda seu término no fechamento e não retorna a soma de uma fila incompleta.
+
+A criação da matriz permanece fora da medição. O tempo da V4 inclui criação da fila e do escopo, execução das subtarefas, inserções, espera, soma final e fechamento. A V4 também requer Java 25 com preview:
+
+```sh
+javac --enable-preview --release 25 -d out src/Main.java
+java --enable-preview -cp out Main
+```
+
+Nos testes, a V4 foi comparada com V1, V2 e V3 usando 5, 10 e 100 tarefas nas matrizes `0x0`, `3x7`, `103x11` e `500x500`. Foram feitas dez repetições por configuração pequena e três por configuração de `500x500`. Todos os resultados ficaram dentro da tolerância relativa de `1e-9`, com mínimo absoluto de `1e-9`, aplicada apenas nos testes. Em `500x500`, a maior diferença absoluta foi aproximadamente `3,04e-7` frente à V1 e `2,33e-10` frente à V2 e à V3. A matriz permaneceu intacta. Também passaram os testes de menu, entradas inválidas, falha de subtarefa e interrupção. Matrizes maiores e experimentos completos de desempenho ainda não foram executados nesta etapa.
+
+Referências: [aula de estado compartilhado e variáveis atômicas](https://github.com/rnl-school/Paralelismo/tree/Aula05_Estado_Compartilhado_Atomico) e [ConcurrentLinkedQueue no Java 25](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ConcurrentLinkedQueue.html).
