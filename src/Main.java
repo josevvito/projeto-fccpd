@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.StructuredTaskScope;
 
 public class Main {
 
@@ -82,6 +83,45 @@ public class Main {
         }
     }
 
+    private static double processarEstruturado(double[][] matriz, int quantidadeTarefas)
+            throws InterruptedException {
+        if (quantidadeTarefas != 5 && quantidadeTarefas != 10 && quantidadeTarefas != 100) {
+            throw new IllegalArgumentException("Use 5, 10 ou 100 tarefas.");
+        }
+
+        // O fechamento do escopo aguarda o termino de todas as subtarefas.
+        try (var scope = StructuredTaskScope.<Double>open()) {
+            List<StructuredTaskScope.Subtask<Double>> resultados = new ArrayList<>();
+
+            for (int tarefa = 0; tarefa < quantidadeTarefas; tarefa++) {
+                final int inicio = (int) ((long) tarefa * matriz.length / quantidadeTarefas);
+                final int fim = (int) ((long) (tarefa + 1) * matriz.length / quantidadeTarefas);
+
+                resultados.add(scope.fork(() -> {
+                    double parcial = 0.0;
+                    for (int i = inicio; i < fim; i++) {
+                        if (Thread.currentThread().isInterrupted()) {
+                            throw new InterruptedException("Processamento interrompido.");
+                        }
+                        for (int j = 0; j < matriz[i].length; j++) {
+                            parcial += calcular(matriz[i][j]);
+                        }
+                    }
+                    return parcial;
+                }));
+            }
+
+            // Se uma subtarefa falhar, o escopo cancela as demais e propaga a falha.
+            scope.join();
+
+            double resultado = 0.0;
+            for (StructuredTaskScope.Subtask<Double> parcial : resultados) {
+                resultado += parcial.get();
+            }
+            return resultado;
+        }
+    }
+
     // Os valores dependem apenas da posicao e ficam entre 0,0001 e 0,0100.
     private static double[][] gerarMatriz(int linhas, int colunas) {
         double[][] matriz = new double[linhas][colunas];
@@ -101,10 +141,16 @@ public class Main {
     }
 
     private static void executarProcessamento(int linhas, int colunas, int quantidadeTarefas) {
+        executarProcessamento(linhas, colunas, quantidadeTarefas, false);
+    }
+
+    private static void executarProcessamento(int linhas, int colunas,
+            int quantidadeTarefas, boolean estruturado) {
         System.out.println();
         System.out.println("==========================================");
         System.out.println(quantidadeTarefas == 0
                 ? "       PROCESSAMENTO SEQUENCIAL"
+                : estruturado ? "       PROCESSAMENTO COM STRUCTUREDTASKSCOPE"
                 : "       PROCESSAMENTO COM EXECUTORSERVICE");
         System.out.println("==========================================");
         System.out.println("Matriz: " + linhas + " x " + colunas);
@@ -126,12 +172,13 @@ public class Main {
         try {
             resultado = quantidadeTarefas == 0
                     ? processar(matriz)
+                    : estruturado ? processarEstruturado(matriz, quantidadeTarefas)
                     : processarParalelo(matriz, quantidadeTarefas);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Processamento interrompido.");
             return;
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | StructuredTaskScope.FailedException e) {
             System.out.println("Falha no processamento: " + e.getCause());
             return;
         }
@@ -160,12 +207,17 @@ public class Main {
         System.out.println("3 - Matriz 1500 x 1500");
         System.out.println("4 - Matriz 2000 x 2000");
         System.out.println("5 - V2: ExecutorService (5, 10 ou 100 tarefas)");
+        System.out.println("6 - V3: StructuredTaskScope (5, 10 ou 100 tarefas)");
         System.out.println("0 - Sair");
         System.out.println("==========================================");
         System.out.print("Escolha uma opcao: ");
     }
 
     private static void escolherProcessamentoParalelo(Scanner scanner) {
+        escolherProcessamentoParalelo(scanner, false);
+    }
+
+    private static void escolherProcessamentoParalelo(Scanner scanner, boolean estruturado) {
         System.out.print("Tamanho da matriz (500, 1000, 1500 ou 2000): ");
         if (!scanner.hasNextInt()) {
             if (scanner.hasNext()) {
@@ -193,7 +245,7 @@ public class Main {
             System.out.println("Quantidade de tarefas invalida!");
             return;
         }
-        executarProcessamento(tamanho, tamanho, quantidadeTarefas);
+        executarProcessamento(tamanho, tamanho, quantidadeTarefas, estruturado);
     }
 
     public static void main(String[] args) {
@@ -229,6 +281,9 @@ public class Main {
                     break;
                 case 5:
                     escolherProcessamentoParalelo(scanner);
+                    break;
+                case 6:
+                    escolherProcessamentoParalelo(scanner, true);
                     break;
                 case 0:
                     System.out.println("Encerrando o programa...");
