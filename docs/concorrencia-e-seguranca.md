@@ -48,4 +48,4 @@ Somar números `double` em ordens diferentes pode mudar os últimos dígitos dev
 
 Isso é diferente de uma race condition, como duas tarefas atualizarem um mesmo `double` com `+=` e perderem uma atualização. Esse padrão não aparece no código atual: os acumuladores das subtarefas são locais, a fila protege suas inserções e a soma final tem um único responsável.
 
-Não foi identificado risco de perda de parciais por escrita concorrente nessa organização. Uma pequena diferença numérica, porém, não prova sozinha que tudo está correto: a validação deve comparar com V1 usando uma tolerância definida e conferir se todos os blocos foram processados. A aplicação não faz essa validação automaticamente.
+Não foi identificado risco de perda de parciais por escrita concorrente nessa organização. Uma pequena diferença numérica, porém, não prova sozinha que tudo está correto: a validação deve comparar com V1 usando uma tolerância definida e conferir se todos os blocos foram processados. As opções individuais não fazem essa validação automaticamente; a opção de benchmarks compara cada resultado com a V1 da mesma dimensão usando a tolerância definida no manual.
