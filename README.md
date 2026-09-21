@@ -30,3 +30,11 @@ java -cp out Main
 ```
 
 O menu oferece matrizes de 500x500, 1000x1000, 1500x1500 e 2000x2000. Ao final de cada processamento, exibe o resultado e o tempo em milissegundos e segundos. Use a opção `0` para sair.
+
+## V2: ExecutorService
+
+As opções `1` a `4` preservam a V1 sequencial. A opção `5` executa a V2: informe o tamanho da matriz e escolha 5, 10 ou 100 tarefas.
+
+Cada tarefa recebe um bloco contíguo de linhas, calcula uma soma local e retorna um `Future<Double>`. Os resultados parciais são somados na ordem de envio. Os limites dos blocos cobrem todas as linhas, inclusive quando a divisão não é exata. O pool usa no máximo o menor valor entre o número de tarefas e os processadores disponíveis e chama `shutdown()` em `finally`.
+
+A matriz e o cálculo são os mesmos da V1. A mudança na ordem das somas pode causar pequenas diferenças de ponto flutuante; a validação usa tolerância relativa de `1e-9` (com tolerância absoluta mínima de `1e-9`). A medição exclui a criação da matriz e inclui a criação do pool, o envio das tarefas, a obtenção e soma dos resultados e a chamada de encerramento.
